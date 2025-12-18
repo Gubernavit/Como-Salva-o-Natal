@@ -9,6 +9,7 @@ public class PlayerControle : MonoBehaviour
 
     Rigidbody2D rb;
     bool noChao;
+    float movimento;
 
     void Start()
     {
@@ -18,7 +19,7 @@ public class PlayerControle : MonoBehaviour
     void Update()
     {
         // primeira perta faz a movimentação da direita/esquerda
-        float movimento = 0f;
+        movimento = 0f;
 
         if (Input.GetKey(KeyCode.A))
             movimento = -1f;
@@ -26,19 +27,19 @@ public class PlayerControle : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             movimento = 1f;
 
-        rb.linearVelocity = new Vector2(
-            movimento * velocidade,
-            rb.linearVelocity.y
-        );
-
         //isso faz um check pra ver se o boneco ta no chão (evita ele sair da tela)
         noChao = Physics2D.OverlapCircle(checarChao.position, 0.2f, chao);
+
+        rb.linearVelocity = new Vector2(movimento * velocidade,rb.linearVelocity.y);        
 
         // esse é o pulo
         if (Input.GetKeyDown(KeyCode.W) && noChao)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, pulo);
         }
+
+        Debug.Log("Update rodando");
+
     }
 
     void OnCollisionEnter2D(Collision2D colisao)

@@ -14,24 +14,27 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (indoDireita)
         {
-            rb.linearVelocity = new Vector2(velocidade, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(velocidade, 0);
 
             if (transform.position.x >= pontoDireita.position.x)
+            {
                 indoDireita = false;
+            }
         }
         else
         {
-            rb.linearVelocity = new Vector2(-velocidade, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(-velocidade, 0);
 
             if (transform.position.x <= pontoEsquerda.position.x)
+            {
                 indoDireita = true;
+            }
         }
     }
-
 
     public void Morrer()
     {
